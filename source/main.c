@@ -28,8 +28,8 @@ int main(){
     SYSCLK_Config(SYSCLK_SRC_PLL);
     
     // Enable clock for GPIOC and GPIOA
-    RCC_APB2_Enable(RCC_APB2ENR_IOPC_EN, ENABLE);
-    RCC_APB2_Enable(RCC_APB2ENR_IOPA_EN, ENABLE);
+    RCC_APB2_Peripheral_Enable(RCC_APB2ENR_IOPC_EN, ENABLE);
+    RCC_APB2_Peripheral_Enable(RCC_APB2ENR_IOPA_EN, ENABLE);
 
     // Inittialize GPIOC pin 13 as output and GPIOA pin 11 as input with pull-up
 
