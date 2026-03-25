@@ -1,8 +1,6 @@
 #include <stdint.h>
 #include "../include/GPIO_drivers.h"
-void GPIO_EnableClock(uint8_t IOPxEN){
-    RCC -> APB2ENR |= (0x01 << IOPxEN);
-}
+
 
 // mode for outut or input
 // cnf type of output and input

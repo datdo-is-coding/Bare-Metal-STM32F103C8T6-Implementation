@@ -7,7 +7,9 @@ LDFLAGS = -nostdlib -T stm32f103_ls.ld -Wl,-Map=final.map
 # Source files
 SRCS = source/main.c \
        source/GPIO_drivers.c \
-       source/stm32f103_startup.c
+       source/stm32f103_startup.c\
+	   source/RCC_drivers.c \
+	   source/Flash_drivers.c \
 
 # Object files (auto replace .c -> .o)
 OBJS = $(SRCS:.c=.o)

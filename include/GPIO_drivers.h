@@ -1,5 +1,25 @@
 #include <stdint.h>
+#ifndef GPIO_DRIVERS_H
+#define GPIO_DRIVERS_H
+/*
+    CRL: Port configuration register low (GPIOx_CRL)
+    Mode and CNF bits for pins 0 to 7 are configured in this register. Each pin is configured using 4 bits (MODEy[1:0] and CNFy[1:0], where y is the pin number).
+    
+    CRH: Port configuration register high (GPIOx_CRH)
+    Mode and CNF bits for pins 8 to 15 are configured in this register. Each pin is configured using 4 bits (MODEy[1:0] and CNFy[1:0], where y is the pin number).
+    
+    IDR: Port input data register (GPIOx_IDR)
+    
+    ODR: Port output data register (GPIOx_ODR)
+    
+    BSRR: Port bit set/reset register (GPIOx_BSRR)
+    Atomic level accessing bit but not the whole word
+    like ODR or IDR
 
+    BRR: Port bit reset register (GPIOx_BRR)
+    
+    LCKR: Port configuration lock register (GPIOx_LCKR)
+*/
 typedef struct{
     volatile uint32_t CRL;
     volatile uint32_t CRH;
@@ -10,19 +30,7 @@ typedef struct{
     volatile uint32_t LCKR;
 }GPIO_Typedef;
 
-typedef struct{
-    volatile uint32_t CR;
-    volatile uint32_t CFGR;
-    volatile uint32_t CIR;
-    volatile uint32_t APB2RSTR;
-    volatile uint32_t APB1RSTR;
-    volatile uint32_t AHBENR;
-    volatile uint32_t APB2ENR;
-    volatile uint32_t APB1ENR;
-    volatile uint32_t BCDR;
-}RCC_Typedef;
 
-#define RCC ((RCC_Typedef*) 0x40021000U)
 #define GPIOA ((GPIO_Typedef*) 0x40010800)
 #define GPIOB ((GPIO_Typedef*) 0x40010C00)
 #define GPIOC ((GPIO_Typedef*) 0x40011000 )
@@ -77,8 +85,10 @@ typedef struct{
 #define GPIO_PULL_UP        0x00
 #define GPIO_PULL_DOWN      0x01
 #define DUMMY_ARG           0x00
-void GPIO_EnableClock(uint8_t IOPxEN);
 void GPIO_Init(GPIO_Typedef* GPIOx,uint8_t GPIO_PIN_x, uint8_t mode, uint8_t cnf,uint8_t pull);
 void GPIO_WritePin(GPIO_Typedef* GPIOx,uint8_t GPIO_PIN_x, uint8_t GPIO_Pin_State);
 void GPIO_TogglePin(GPIO_Typedef* GPIOx,uint8_t GPIO_PIN_x);
 uint32_t GPIO_ReadPin(GPIO_Typedef* GPIOx, uint8_t GPIO_PIN_x);
+
+
+#endif
