@@ -1,5 +1,11 @@
 #include "../include/RCC_drivers.h"
 
+// Configure MCO output clock source: No Clock, System Clock, HSI, HSE or PLL divided by 2
+void MCO_Config(uint32_t MCO_Source){
+    RCC -> CFGR &= ~MCO_CLEAR_MASK;
+    RCC -> CFGR |= MCO_Source;
+}
+
 // Enable High Speed External Crystal
 void HSE_Enable(void){
     RCC -> CR |= HSE_ON;
@@ -89,6 +95,7 @@ void RCC_AHB_Prescaler_Config(uint32_t AHB_Prescaler){
     RCC -> CFGR |= AHB_Prescaler;
 }
 
+// Enable interrupt
 void RCC_Interrupt_Enable(uint32_t interrupt, uint8_t state){
     if(state == ENABLE){
         RCC -> CIR |= interrupt;
@@ -111,6 +118,7 @@ void RCC_APB2_Peripheral_Reset(uint32_t peripheral){
     RCC -> APB2RSTR &= ~peripheral;
 }
 
+// reset APB1 Peripheral
 void RCC_APB1_Peripheral_Reset(uint32_t peripheral){
     RCC -> APB1RSTR |= peripheral;
     RCC -> APB1RSTR &= ~peripheral;
@@ -125,6 +133,7 @@ void RCC_AHB_Peripheral_Enable(uint32_t peripheral, uint8_t state){
         RCC -> AHBENR &= ~peripheral;
     }
 }
+//APB2 Peripheral Enable
 void RCC_APB2_Peripheral_Enable(uint32_t peripheral, uint8_t state){
     if(state == ENABLE){
         RCC -> APB2ENR |= peripheral;
@@ -206,8 +215,4 @@ void RCC_LSI_Enable(uint8_t state){
         RCC -> CSR &= ~LSION;
     }
 }
-// Configure MCO output clock source: No Clock, System Clock, HSI, HSE or PLL divided by 2
-void MCO_Config(uint32_t MCO_Source){
-    RCC -> CFGR &= ~MCO_CLEAR_MASK;
-    RCC -> CFGR |= MCO_Source;
-}
+

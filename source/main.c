@@ -38,12 +38,13 @@ int main(){
     GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
     while(1){
         
-        if(GPIO_ReadPin(GPIOA,GPIO_PIN_11) == 0){
-            delay(10000);
-            while(GPIO_ReadPin(GPIOA,GPIO_PIN_11) == 0);
+        
+            delay(1000000);
+            
             GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-        }
+        
      
     }
     
 }
+
