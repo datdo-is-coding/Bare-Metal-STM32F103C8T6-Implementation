@@ -1,35 +1,35 @@
 #include "../include/RCC_driver.h"
 
 // Configure MCO output clock source: No Clock, System Clock, HSI, HSE or PLL divided by 2
-void MCO_Config(uint32_t MCO_Source){
+void RCC_MCO_Config(uint32_t MCO_Source){
     RCC -> CFGR &= ~MCO_CLEAR_MASK;
     RCC -> CFGR |= MCO_Source;
 }
 
 // Enable High Speed External Crystal
-void HSE_Enable(void){
+void RCC_HSE_Enable(void){
     RCC -> CR |= HSE_ON;
     while(!(RCC -> CR & HSE_RDY));
 }
 
 // Enable High Speed Internal Oscillator
-void HSI_Enable(void){
+void RCC_HSI_Enable(void){
     RCC -> CR |= HSI_ON;
     while(!(RCC -> CR & HSI_RDY));
 }
 
 // Enable Phase Locked Loop
-void PLL_Enable(void){
+void RCC_PLL_Enable(void){
     RCC -> CR |= PLL_ON;
     while(!(RCC -> CR & PLL_RDY));
 }
 // Disable HSE / HSI / PLL
-void HSE_Disable(void){ RCC -> CR &= ~HSE_OFF; }
-void HSI_Disable(void){ RCC -> CR &= ~HSI_OFF; }
-void PLL_Disable(void){RCC -> CR &= ~PLL_OFF;}
+void RCC_HSE_Disable(void){ RCC -> CR &= ~HSE_OFF; }
+void RCC_HSI_Disable(void){ RCC -> CR &= ~HSI_OFF; }
+void RCC_PLL_Disable(void){RCC -> CR &= ~PLL_OFF;}
 
 // Configure PLL multiplication factor and source
-void PLLMUL_Config(uint32_t PLLMUL_Factor){
+void RCC_PLLMUL_Config(uint32_t PLLMUL_Factor){
     // according to hardware rule, 
     // do not change PLL param when PLL is on, 
     // so return if PLL is on
@@ -39,7 +39,7 @@ void PLLMUL_Config(uint32_t PLLMUL_Factor){
     RCC -> CFGR &= ~PLLMUL_CLEAR_MASK;
     RCC -> CFGR |= PLLMUL_Factor;
 }
-void PLLSRC_Config(uint32_t PLL_Source){
+void RCC_PLLSRC_Config(uint32_t PLL_Source){
     // according to hardware rule, 
     // do not change PLL param when PLL is on, 
     // so return if PLL is on
@@ -50,7 +50,7 @@ void PLLSRC_Config(uint32_t PLL_Source){
     RCC -> CFGR |= PLL_Source;
 }
 // Determine to divide HSE by 2 before feeding it to PLL or not
-void PLLXTPRE_Config(uint32_t HSE_entry){
+void RCC_PLLXTPRE_Config(uint32_t HSE_entry){
     // according to hardware rule, 
     // do not change PLL param when PLL is on, 
     // so return if PLL is on
@@ -61,7 +61,7 @@ void PLLXTPRE_Config(uint32_t HSE_entry){
     RCC -> CFGR |= HSE_entry;
 }
 // Configure clock source for System Clock Source
-void SYSCLK_Config(uint8_t SYSCLK_Source){
+void RCC_SYSCLK_Config(uint8_t SYSCLK_Source){
     if(SYSCLK_Source > 0x02) return;
     if(SYSCLK_Source == SYSCLK_SRC_PLL && !(RCC -> CR & PLL_RDY)){
         return;

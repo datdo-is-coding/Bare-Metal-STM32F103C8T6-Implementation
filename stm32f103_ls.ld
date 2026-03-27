@@ -5,6 +5,10 @@ MEMORY{
     SRAM(rwx): ORIGIN = 0x20000000, LENGTH = 20K
 }
 _estack = ORIGIN(SRAM) + LENGTH(SRAM);
+
+_Min_Heap_Size = 0x200; /* required amount of heap */
+_Min_Stack_Size = 0x400; /* required amount of stack */
+
 SECTIONS 
 {
     .isr_vector :
@@ -42,4 +46,6 @@ SECTIONS
         . = ALIGN(4);
         _ebss = .;
     } >SRAM 
+    . = ALIGN(4);
+    _sheap = .;
 }

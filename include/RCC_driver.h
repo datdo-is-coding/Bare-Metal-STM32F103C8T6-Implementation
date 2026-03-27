@@ -264,20 +264,20 @@ typedef struct{
 #define LSI_RDY             (1 << 1)
 #define LSION               (1 << 0)
 
-void HSE_Enable(void);
-void HSI_Enable(void);
-void HSE_Disable(void);
-void HSI_Disable(void);
+void RCC_HSE_Enable(void);
+void RCC_HSI_Enable(void);
+void RCC_HSE_Disable(void);
+void RCC_HSI_Disable(void);
 
-void PLL_Enable(void);
-void PLL_Disable(void);
-void PLLMUL_Config(uint32_t PLLMUL_Factor);
-void PLLSRC_Config(uint32_t PLL_Source);
-void PLLXTPRE_Config(uint32_t HSE_entry);
+void RCC_PLL_Enable(void);
+void RCC_PLL_Disable(void);
+void RCC_PLLMUL_Config(uint32_t PLLMUL_Factor);
+void RCC_PLLSRC_Config(uint32_t PLL_Source);
+void RCC_PLLXTPRE_Config(uint32_t HSE_entry);
 
-void SYSCLK_Config(uint8_t SYSCLK_Source);
+void RCC_SYSCLK_Config(uint8_t SYSCLK_Source);
 
-void MCO_Config(uint32_t MCO_Source);
+void RCC_MCO_Config(uint32_t MCO_Source);
 
 
 void RCC_APB1_Prescaler_Config(uint32_t APB1_Prescaler);

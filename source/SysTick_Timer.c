@@ -35,7 +35,11 @@ void SysTick_ClearCurrentValue(){
     SysTick -> VAL = 0x00;
 }
 
-
+// ticks = time * clock frequency
+// example: HCLK = 72MHz
+// time : 1ms = 0.001s
+// clock source HCLK /8 = 9MHz
+// ticks = 0.001 * 9 000 000 = 9000 ticks
 void SysTick_Delay(uint32_t ticks){
     SysTick -> LOAD &= 0x00;
     // Set Reload

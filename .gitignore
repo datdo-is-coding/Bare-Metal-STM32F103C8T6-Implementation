@@ -2,3 +2,4 @@
 *.elf
 *.sh
 final.* 
+*.ps1

@@ -12,7 +12,8 @@ extern uint32_t _sbss;
 extern uint32_t _ebss;
 // the address for the end of stack memory in RAM (aka the end of the RAM)
 extern uint32_t _estack;
-
+// the heap_start
+extern uint32_t _sheap;
 #define RESERVED 0
 
 extern int main(void);

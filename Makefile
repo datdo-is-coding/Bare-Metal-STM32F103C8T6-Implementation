@@ -10,7 +10,8 @@ SRCS = source/main.c \
        source/stm32f103_startup.c\
 	   source/RCC_driver.c \
 	   source/Flash_driver.c \
-	   source/SysTick_Timer.c
+	   source/SysTick_Timer.c \
+	   source/sysmem.c
 
 # Object files (auto replace .c -> .o)
 OBJS = $(SRCS:.c=.o)

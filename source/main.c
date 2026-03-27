@@ -3,13 +3,13 @@
 #include "../include/RCC_driver.h"
 #include "../include/Flash_driver.h"
 #include "../include/SysTick_Timer.h"
-
+#include "sysmem.c"
 
 
 int main(){
     // System clock configuration
     // Start High-Speed External (HSE) oscillator
-    HSE_Enable();
+    RCC_HSE_Enable();
     // Enable Flash Prefetch and set latency for 72MHz operation
     Flash_EnablePrefetch(ENABLE);
     Flash_SetLatency(FLASH_LATENCY_2);
@@ -19,13 +19,13 @@ int main(){
     RCC_AHB_Prescaler_Config(AHB_DIV1);
     RCC_APB2_Prescaler_Config(APB2_DIV1);
     // Disable PLL to configure it, set HSE as PLL source and multiply by 9 to get 72MHz
-    PLL_Disable();
-    PLLSRC_Config(PLL_SRC_HSE);
-    PLLMUL_Config(PLLMUL_x9);
+    RCC_PLL_Disable();
+    RCC_PLLSRC_Config(PLL_SRC_HSE);
+    RCC_PLLMUL_Config(PLLMUL_x9);
 
-    PLL_Enable();
+    RCC_PLL_Enable();
     // Choose PLL as a clock source
-    SYSCLK_Config(SYSCLK_SRC_PLL);
+    RCC_SYSCLK_Config(SYSCLK_SRC_PLL);
     
     SysTick_ConfigReloadValue(72000);
     
@@ -48,9 +48,6 @@ int main(){
             GPIO_TogglePin(GPIOC,GPIO_PIN_13);
             last = millis;
         }
-            
-     
     }
-    
 }
 
