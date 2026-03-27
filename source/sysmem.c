@@ -22,8 +22,7 @@
 
 /* Includes */
 
-#include <stdint.h>
-#include <stddef.h>
+#include "../include/sysmem.h"
 /**
  * Pointer to the current high watermark of the heap usage
  */
