@@ -27,5 +27,4 @@ uint8_t NVIC_GetActive(uint8_t IRQn);
 uint8_t NVIC_GetPending(uint8_t IRQn);
 uint8_t NVIC_GetPriority(uint8_t IRQn);
 void NVIC_SetPriorityGrouping(uint32_t priorityGroup);
-
 #endif

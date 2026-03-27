@@ -1,6 +1,6 @@
 #include <stdint.h>
-#ifndef GPIO_DRIVERS_H
-#define GPIO_DRIVERS_H
+#ifndef GPIO_DRIVER_H
+#define GPIO_DRIVER_H
 /*
     CRL: Port configuration register low (GPIOx_CRL)
     Mode and CNF bits for pins 0 to 7 are configured in this register. Each pin is configured using 4 bits (MODEy[1:0] and CNFy[1:0], where y is the pin number).

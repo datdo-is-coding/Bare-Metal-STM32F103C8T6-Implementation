@@ -1,10 +1,10 @@
 #include <stdint.h>
-#include "../include/GPIO_drivers.h"
-#include "../include/RCC_drivers.h"
-#include "../include/Flash_drivers.h"
-void delay(uint32_t time){
-    while(time--);
-}
+#include "../include/GPIO_driver.h"
+#include "../include/RCC_driver.h"
+#include "../include/Flash_driver.h"
+#include "../include/SysTick_Timer.h"
+
+
 
 int main(){
     // System clock configuration
@@ -27,6 +27,12 @@ int main(){
     // Choose PLL as a clock source
     SYSCLK_Config(SYSCLK_SRC_PLL);
     
+    SysTick_ConfigReloadValue(72000);
+    
+    SysTick_ClearCurrentValue();
+    SysTick_ConfigClockSource(Systick_AHB_CLOCK);
+    SysTick_EnableInterrupt(ENABLE);
+    SysTick_Enable(ENABLE);
     // Enable clock for GPIOC and GPIOA
     RCC_APB2_Peripheral_Enable(RCC_APB2ENR_IOPC_EN, ENABLE);
     RCC_APB2_Peripheral_Enable(RCC_APB2ENR_IOPA_EN, ENABLE);
@@ -36,13 +42,13 @@ int main(){
     GPIO_Init(GPIOC, GPIO_PIN_13, OUTPUT_10MHz, OUTPUT_MODE_PUSH,DUMMY_ARG);
     GPIO_Init(GPIOA, GPIO_PIN_11,INPUT_MODE,INPUT_PULL,GPIO_PULL_UP);
     GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+    uint32_t last = millis;
     while(1){
-        
-        
-            delay(1000000);
-            
+        if(millis - last >= 5000){
             GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-        
+            last = millis;
+        }
+            
      
     }
     

@@ -1,4 +1,4 @@
-#include "../include/RCC_drivers.h"
+#include "../include/RCC_driver.h"
 
 // Configure MCO output clock source: No Clock, System Clock, HSI, HSE or PLL divided by 2
 void MCO_Config(uint32_t MCO_Source){

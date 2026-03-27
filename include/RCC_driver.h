@@ -1,5 +1,5 @@
-#ifndef RCC_DRIVERS_H
-#define RCC_DRIVERS_H
+#ifndef RCC_DRIVER_H
+#define RCC_DRIVER_H
 #include <stdint.h>
 
 /*
