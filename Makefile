@@ -1,8 +1,8 @@
 CC      = arm-none-eabi-gcc
 MACH    = cortex-m3
 
-CFLAGS  = -c -mcpu=$(MACH) -mthumb -std=gnu11 -O0 -Iinc
-LDFLAGS = -nostdlib -T stm32f103_ls.ld -Wl,-Map=final.map
+CFLAGS  = -c -mcpu=$(MACH) -mthumb -std=gnu11 -O0 -Iinc -g
+LDFLAGS = -nostdlib -T stm32f103_ls.ld -Wl,-Map=final.map -g
 
 # Source files
 SRCS = source/main.c \

@@ -3,7 +3,7 @@
 #include "../include/RCC_driver.h"
 #include "../include/Flash_driver.h"
 #include "../include/SysTick_Timer.h"
-#include "sysmem.c"
+#include "../include/mem_alloc.h"
 
 
 int main(){
