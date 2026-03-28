@@ -11,7 +11,13 @@ SRCS = source/main.c \
 	   source/RCC_driver.c \
 	   source/Flash_driver.c \
 	   source/SysTick_Timer.c \
-	   source/sysmem.c
+	   source/sysmem.c \
+	   source/queue.c \
+	   source/NVIC_driver.c \
+	   source/button_ao.c \
+	   source/led_ao.c \
+	   source/EXTI_driver.c \
+	   source/AFIO_driver.c 
 
 # Object files (auto replace .c -> .o)
 OBJS = $(SRCS:.c=.o)

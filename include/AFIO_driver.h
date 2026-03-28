@@ -50,6 +50,5 @@ typedef struct{
 
 void AFIO_EventOutputEnable(uint8_t state);
 void AFIO_SetEventOutputSource(uint8_t port, uint8_t pin);
-
 void AFIO_ConfigureEXTI(uint8_t EXTIx, uint8_t pin);
 #endif

@@ -4,6 +4,30 @@
 #include "../include/Flash_driver.h"
 #include "../include/SysTick_Timer.h"
 #include "../include/mem_alloc.h"
+#include "../include/button_ao.h"
+#include "../include/led_ao.h"
+#include "../include/AFIO_driver.h"
+#include "../include/EXTI_driver.h"
+#include "../include/NVIC_driver.h"
+#include "../include/queue.h"
+
+extern AO LED_AO;
+extern AO Button_AO;
+
+void EXTI15_10_IRQHandler(void){
+    static uint32_t last = 0;
+
+    if(EXTI_GetPending(11)){
+
+        if(millis - last > 50){
+            Event e = {BUTTON_PRESSED};
+            enqueue(&Button_AO.q, &e);
+            last = millis;
+        }
+
+        EXTI_ClearPending(11);
+    }
+}
 
 
 int main(){
@@ -42,11 +66,41 @@ int main(){
     GPIO_Init(GPIOC, GPIO_PIN_13, OUTPUT_10MHz, OUTPUT_MODE_PUSH,DUMMY_ARG);
     GPIO_Init(GPIOA, GPIO_PIN_11,INPUT_MODE,INPUT_PULL,GPIO_PULL_UP);
     GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+    
+    // Enable AFIO clock
+RCC_APB2_Peripheral_Enable(RCC_APB2ENR_AFIO_EN, ENABLE);
+
+// Map PA11 → EXTI11
+AFIO_ConfigureEXTI(11, AFIO_PORT_A);
+
+// Configure EXTI line 11 for falling edge trigger
+EXTI_SetTrigger(11, EXTI_FALLING);
+// Enable EXTI line 11 interrupt
+EXTI_EnableInterrupt(11);
+
+// Enable NVIC
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+    NVIC_SetPriority(EXTI15_10_IRQn, 1);
+
+    LED_AO.dispatcher = LED_Dispatcher;
+    Button_AO.dispatcher = Button_Dispatcher;
+    queue_init(&LED_AO.q);
+    queue_init(&Button_AO.q);
     uint32_t last = millis;
     while(1){
-        if(millis - last >= 5000){
-            GPIO_TogglePin(GPIOC,GPIO_PIN_13);
-            last = millis;
+        if(!isEmpty(&LED_AO.q)){
+            while(!isEmpty(&LED_AO.q)){
+                Event e;
+                dequeue(&LED_AO.q, &e);
+                LED_AO.dispatcher(&e);
+            }
+        }
+        else if(!isEmpty(&Button_AO.q)){
+            while(!isEmpty(&Button_AO.q)){
+                Event e;
+                dequeue(&Button_AO.q, &e);
+                Button_AO.dispatcher(&e);
+            }
         }
     }
 }

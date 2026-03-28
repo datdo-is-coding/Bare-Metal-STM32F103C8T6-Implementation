@@ -18,6 +18,16 @@
 #define NVIC_IABR   ((volatile uint32_t*)0xE000E300)
 #define NVIC_IPR    ((volatile uint8_t*) 0xE000E400)
 
+// EXTI IRQ numbers for STM32F103 (Cortex-M3)
+#define EXTI0_IRQn        6
+#define EXTI1_IRQn        7
+#define EXTI2_IRQn        8
+#define EXTI3_IRQn        9
+#define EXTI4_IRQn        10
+#define EXTI9_5_IRQn      23
+#define EXTI15_10_IRQn    40
+
+
 void NVIC_EnableIRQ(uint8_t IRQn);
 void NVIC_DisableIRQ(uint8_t IRQn);
 void NVIC_SetPendingIRQ(uint8_t IRQn);

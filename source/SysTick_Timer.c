@@ -1,7 +1,10 @@
 #include "../include/SysTick_Timer.h"
+#include "../include/queue.h"
+#include "../include/led_ao.h"
+
 
 volatile uint32_t millis = 0;
-
+volatile uint32_t last = 0;
 void SysTick_Enable(uint8_t state){
     if(state == ENABLE || state == DISABLE){
         SysTick -> CTRL &= ~(1 << 0);
@@ -54,4 +57,9 @@ void SysTick_Delay(uint32_t ticks){
 
 void SysTick_Handler(void){
     millis++;
+    if(millis - last >= 500){
+        Event e = {TIME_OUT};
+        enqueue(&LED_AO.q, &e);
+        last = millis;
+    }
 }
