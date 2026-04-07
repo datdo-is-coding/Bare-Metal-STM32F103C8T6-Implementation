@@ -71,10 +71,10 @@ typedef struct{
 #define INPUT_PULL          0x02
 
 // cnf type of output and input
-#define OUTPUT_MODE_PUSH    0x00
-#define OUTPUT_MODE_OPEN    0x01
-#define AF_OUTPUT_PUSH      0x02
-#define AF_OUTPUT_OPEN      0x03
+#define OUTPUT_MODE_PP    0x00
+#define OUTPUT_MODE_OD    0x01
+#define AF_OUTPUT_PP        0x02
+#define AF_OUTPUT_OD        0x03
 
 // mode for outut or input
 #define INPUT_MODE          0x00

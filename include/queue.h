@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define QUEUE_SIZE 10
+#define QUEUE_SIZE 20
 
 typedef enum{
     BUTTON_PRESSED,
